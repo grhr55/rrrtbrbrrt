@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CROWN</title>
+    <meta name="store-url" content="https://apps.apple.com/us/app/caliente-club/id6503647910">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .open-button {
+            position: absolute;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 211px;
+            background-color: #1d8f3e;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 30px;
+            pointer-events: none; /* Отключает взаимодействие с кнопкой */
+        }
+        .open-button.visible {
+            pointer-events: all; /* Включает взаимодействие с кнопкой */
+        }
+    </style>
+</head>
+<body>
+    <iframe src="https://grhr55.github.io/CROWN/" title="Трансляция сайта"></iframe>
+    <button class="open-button" id="storeButton" onclick="openStore()">play</button>
+
+    <script>
+        function openStore() {
+            var storeUrl = document.querySelector('meta[name="store-url"]').getAttribute('content');
+            if (!storeUrl) {
+                console.error('Store URL is missing or invalid.');
+                return;
+            }
+
+            console.log('Store URL:', storeUrl);
+
+            if (typeof mraid !== 'undefined') {
+                console.log('MRAID available');
+                if (mraid.getState() === 'default' || mraid.getState() === 'expanded') {
+                    console.log('MRAID state is default or expanded:', mraid.getState());
+                    mraid.open(storeUrl);
+                } else {
+                    console.log('MRAID state is not default or expanded:', mraid.getState());
+                    window.open(storeUrl, '_blank');
+                }
+            } else {
+                console.log('MRAID not available');
+                window.open(storeUrl, '_blank');
+            }
+        }
+
+        function showStoreButton() {
+            document.getElementById('storeButton').classList.add('visible');
+        }
+
+        function hideStoreButton() {
+            document.getElementById('storeButton').classList.remove('visible');
+        }
+
+        // Это пример кода, который должен быть вызван в момент завершения анимации или игры
+        // showStoreButton() вызывается когда игра или анимация заканчивается
+        setTimeout(showStoreButton, 1000); // Пример через 10 секунд, замените на ваше событие
+        // hideStoreButton() вызывается когда кнопка не должна быть активной, например, в начале или середине игры
+        // setTimeout(hideStoreButton, 5000); // Пример через 5 секунд, замените на ваше событие
+    </script>
+</body>
+</html>
